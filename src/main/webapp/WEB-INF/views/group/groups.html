@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Groups</title>
+    <style>table,
+    .table{
+        border: 1px solid #000000;
+        table-layout: fixed;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .table th {
+        font-weight: bold;
+        padding: 5px;
+        background: #0b8593;
+        border: 1px solid #dddddd;
+    }
+    .table td{
+        padding: 5px 10px;
+        border: 1px solid #eee;
+        text-align: left;
+    }
+    .table tbody tr:nth-child(odd){
+        background: #fff;
+    }
+    .table tbody tr:nth-child(even){
+        background: #d3f8ef;
+    }
+    td {
+        border: 1px solid #333;
+        margin-top: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+
+    }
+
+    thead,
+    tfoot {
+        background-color: dodgerblue;
+        color: #fff;
+    }
+    </style>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            padding: 3px;
+            cursor: auto;
+        }
+    </style>
+</head>
+<body bgcolor="DEDEDEFF">
+<a th:href="@{/}">
+    <button style="height: 20px; width: 50px; border: none; background-color:cornflowerblue;">Main</button>
+</a><table class="table table-bordered ">
+    <thead class="table-dark">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Croup name</th>
+        <th scope="col">Date of start</th>
+        <th scope="col">Date of finish</th>
+        <th scope="col" style="color:white">Student</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr th:each="groups: ${group}">
+        <td th:text="${groups.id}"></td>
+        <td th:text="${groups.groupName}"></td>
+        <td th:text="${groups.dateOfStart}"></td>
+        <td th:text="${groups.dateOfFinish}"></td>
+        <td><a th:href="@{/students(groupId=${groups.id})}">
+            <button style="height: 40px; width: 90px;border: none; background-color:paleturquoise;">Students</button>
+        </a>
+        </td>
+        <td><a th:href="@{/groups/updateGroup/{id}(id=${groups.id})}">
+            <button style="height: 40px; width: 80px; border: none; background-color:seagreen;">update</button>
+        </a>
+        </td>
+        <td>
+            <form  th:action="@{/groups/deleteGroup/(groupId=${groups.id})}" th:method="delete"
+                   onclick="return confirm('Are you sure you want to delete this group?');">
+                <button style="height:50px; width: 80px;border: none; font-style:italic;  background-color:indianred;">delete</button>
+
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add group"
+       onclick="window.location.href = 'groups/addGroup'">
+</body>
+</html>

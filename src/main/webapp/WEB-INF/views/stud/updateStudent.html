@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Student</title>
+</head>
+<body bgcolor="DEDEDEFF">
+<form th:method="patch" th:action="@{/students/saveUpdateStudent}" th:object="${student}"
+      style="text-align:center; margin-top:200px; font-size: 30px;">
+    <input type="hidden" name="id" th:field="*{id}">
+    <input type="text" name="firstName" th:field="*{firstName}" placeholder="First Name">
+    <br><br>
+    <input type="text" name="lastName" th:field="*{lastName}" placeholder="Last Name">
+    <input type="text" name="email" th:field="*{email}" placeholder="Email">
+    <br><br>
+    <label> ONLINE
+        <input type="checkbox" th:value="ONLINE" th:field="*{studyFormat}">
+    </label>
+    <label> OFFLINE
+        <input type="checkbox" th:value="OFFLINE" th:field="*{studyFormat}">
+    </label>
+    <select th:field="${student.groupsId}">
+        <option th:each="groups:${groupList}"
+                th:value="${groups.getId()}"
+                th:text="${groups.getGroupName()}"></option>
+    </select>
+
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>
